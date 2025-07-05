@@ -1,6 +1,6 @@
 Task 8: Stored Procedures and Functions
 
-CREATE OR REPLACE PROCEDURE check_salary_level (
+1)CREATE OR REPLACE PROCEDURE check_salary_level (
     p_salary IN NUMBER)
 IS
 BEGIN
@@ -17,7 +17,7 @@ SET SERVEROUTPUT ON;
 EXEC check_salary_level(6000);
 EXEC check_salary_level(2500);
 
-CREATE OR REPLACE FUNCTION get_grade (
+2)CREATE OR REPLACE FUNCTION get_grade (
     p_marks IN NUMBER
 )
 RETURN VARCHAR2
@@ -37,7 +37,7 @@ RETURN val_grade;
 END;
 SELECT get_grade(85) AS grade FROM dual;
 
-CREATE OR REPLACE PROCEDURE get_emp_name (
+3)CREATE OR REPLACE PROCEDURE get_emp_name (
     p_empno IN emp.empno%TYPE,
     p_ename OUT emp.ename%TYPE
 )
@@ -48,4 +48,16 @@ END;
 VARIABLE val_name VARCHAR2(50);
 EXEC get_emp_name(7839, :val_name);
 PRINT val_name;
+
+CREATE OR REPLACE FUNCTION annual_salary (
+    p_salary IN NUMBER
+)
+RETURN NUMBER
+IS
+BEGIN
+    RETURN p_salary * 12;
+END;
+/
+SELECT ename, sal, annual_salary(sal) AS yearly_income FROM emp;
+
 
